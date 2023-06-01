@@ -6,34 +6,45 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:34:28 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/05/31 15:25:13 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/01 15:47:19 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	init_philo(int ac, char **av, t_data *data)
+void	*routine()
 {
-	data->nb_philo = av[1];
-	data->time_dead = av[2];
-	data->time_eat = av[3];
-	data->time_sleep = av[4];
-	if (av[5])		
-	{
-		data->nb_meal = av[5];
-		data->meal = true;
-	}
+	printf("trump\n");
 }
 
-void	create_philo(t_philo *philo)
+void	*routine23()
 {
-	pthread_create()
+	printf("poutine\n");
 }
 
 int	main(int ac, char **av)
 {
-	t_data	*data;
+	pthread_t *t1, t2, t3, t4;
+	int	i;
+	int	j;
 
-	args_checker(ac, av, &data);
-	init_philo(ac, av, &data);
+	i = 0;
+	j = 0;
+	while (i < 100)
+	{
+		pthread_create(&t1, NULL, &routine, NULL);
+		pthread_create(&t2, NULL, &routine, NULL);
+		pthread_create(&t3, NULL, &routine23, NULL);
+		pthread_create(&t4, NULL, &routine23, NULL);
+		i++;	
+	}
+	while (j < 100)
+	{
+		pthread_join(&t1, NULL);
+		pthread_join(&t2, NULL);
+		pthread_join(&t3, NULL);
+		pthread_join(&t4, NULL);
+		j++;
+	}
+	return (0);
 }
