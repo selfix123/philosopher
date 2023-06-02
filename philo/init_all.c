@@ -6,7 +6,7 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 10:23:45 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/01 15:23:15 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/02 12:51:27 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	init_data(int ac, char **av, t_data *data)
 {
-	data->nb_philo = av[1];
-	data->time_die = av[2];
-	data->time_eat = av[3];
-	data->time_sleep = av[4];
+	data->nb_philo = ft_atoi(av[1]);
+	data->time_die = ft_atoi(av[2]);
+	data->time_eat = ft_atoi(av[3]);
+	data->time_sleep = ft_atoi(av[4]);
 	if (av[5])
 	{
-		data->nb_meal = av[5];
+		data->nb_meal = ft_atoi(av[5]);
 		data->meal = true;
 	}
 }

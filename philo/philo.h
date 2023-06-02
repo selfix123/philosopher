@@ -6,7 +6,7 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:34:54 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/01 12:02:03 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/02 13:03:53 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdbool.h>
 # include <string.h>
 # include <limits.h>
+# include <sys/time.h>
 
 # define THINKING "thinking"
 # define EATING "eating"

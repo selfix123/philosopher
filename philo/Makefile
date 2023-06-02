@@ -9,14 +9,14 @@ CC		=	gcc
 CFLAGS	=	-Wall -Werror -Wextra
 RM		=	rm -f
 
-SRCS	=	argc_checker.c\
+SRCS	=	philo.c\
+			argc_checker.c\
 			init_all.c\
 			is_int.c\
 			ft_liatoi.c\
 			ft_strlen.c\
 			ft_bzero.c\
 			checks.c\
-			philo.c\
 
 OBJS	=	$(SRCS:.c=.o)
 
