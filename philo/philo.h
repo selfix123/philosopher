@@ -6,7 +6,7 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:34:54 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/02 13:03:53 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/06 09:50:40 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 # include <limits.h>
 # include <sys/time.h>
 
-# define THINKING "thinking"
-# define EATING "eating"
-# define DIED "died"
-# define SLEEP "slepping"
+# define THINKING "is thinking"
+# define EATING "is eating"
+# define DIED "as died"
+# define SLEEP "is slepping"
 # define FORK "took a fork"
 
 typedef long long	t_time;

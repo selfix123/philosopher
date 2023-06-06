@@ -6,7 +6,7 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 10:23:45 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/02 12:51:27 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/06 13:00:37 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,3 +42,22 @@ void	*init_philo(t_data *data)
 	}
 }
 
+int	create_philo(t_philo *philo)
+{
+	int	i;
+
+	i = 0;
+	while (i <= philo->nb)
+	{
+		if (pthread_create(&philo->thread[i], NULL, , NULL) != 0)
+			return (1);
+		i++;
+	}
+	while (i <= philo->nb)
+	{
+		if (pthread_join(&philo->thread[i], NULL) != 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
