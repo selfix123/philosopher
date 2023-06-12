@@ -17,6 +17,9 @@ SRCS	=	philo.c\
 			ft_strlen.c\
 			ft_bzero.c\
 			checks.c\
+			atoi.c\
+			get_time.c\
+			mutex.c\
 
 OBJS	=	$(SRCS:.c=.o)
 
@@ -24,7 +27,6 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "$(GREEN)Compiling . . .$(WHITE)\n"
-	@ $(MAKE) -C
 	@ $(CC) $(CFLAGS) $(SRCS) -o $(NAME)
 
 $(OBJS): $(SRCS)

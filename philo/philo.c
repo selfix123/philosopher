@@ -6,32 +6,31 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:34:28 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/06 11:26:19 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/12 13:45:26 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*routine(void)
-{
-	printf("trump\n");
-}
-
-
 int	main(int ac, char **av)
 {
-	pthread_t *t1[100];
-	int i;
+	t_data	*data;
 
-	for (i = 0 ; i < 100; i++){
-		if (pthread_create(&t1[i], NULL, &routine, NULL) != 0)
-			return (1);
-		printf("The thread %d is cumming to ",  i);
-	}
-	for (i = 0; i < 100; i++){
-		if (pthread_join(&t1[i], NULL) != 0)
-			return (2);
-		printf("The thread %d wrote trump\n", i);
-	}
+	data = malloc(sizeof(t_data));
+	if (!data)
+		return (1);
+	init_data(av, data);
+	if (!args_checker(ac, av, data))
+		return (1);
+	if (!mutex_init(data))
+		return (free(data), 1);
+	if (!init_philo(data))
+		return (free(data), 1);
+	if (!create_philo(data))
+		return (free(data), 1);
+	if (stop_philo(data))
+		return (1);
+	if (destroy_mutex(data))
+		return (1);
 	return (0);
 }

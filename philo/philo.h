@@ -6,7 +6,7 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:34:54 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/06 09:50:40 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/12 13:24:14 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,14 @@ int		ft_strlen(char *str);
 void	ft_bzero(void *str, size_t n);
 int		args_checker(int ac, char **av, t_data *data);
 int		check_forks(t_philo *philo);
+void	*life(void *ptr);
+int		get_time(void);
+int		ft_atoi(const char *str);
+int		mutex_init(t_data *data);
+void	init_data(char **av, t_data *data);
+int		destroy_mutex(t_data *data);
+int		init_philo(t_data *data);
+int		create_philo(t_data *data);
+int		stop_philo(t_data *data);
 
 #endif

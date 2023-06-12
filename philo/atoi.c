@@ -1,32 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   argc_checker.c                                     :+:      :+:    :+:   */
+/*   atoi.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/31 14:43:34 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/12 15:00:41 by zbeaumon         ###   ########.fr       */
+/*   Created: 2023/06/07 10:47:13 by zbeaumon          #+#    #+#             */
+/*   Updated: 2023/06/07 10:47:29 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	args_checker(int ac, char **av, t_data *data)
+int	ft_atoi(const char *str)
 {
-	int	i;
+	int	count;
+	int	res;
 
-	i = 0;
-	if (ac != 5)
-		return (printf("Need at least 4 arguments\n"));
-	else if (data->meal == true && ac != 6)
-		return (printf("need 5 arguments\n"));
-	else if (ft_atoi(av[1]) > 200)
-		return (printf("Too much philo, try below 200\n"));
-	while (++i < ac)
+	count = 1;
+	res = 0;
+	if (!str)
+		return (0);
+	while (*str && (*str == ' ' || *str == '\n' || *str == '\t'
+			|| *str == '\v' || *str == '\f' || *str == '\r'))
+		++str;
+	if (*str == '-')
+		count = -1;
+	if (*str == '-' || *str == '+')
+		++str;
+	while (*str >= 48 && *str <= 57)
 	{
-		if (!is_int(ac, av))
-			return (printf("All arguments must be integer"), 1);
+		res = res * 10 + (*str - 48);
+		++str;
 	}
-	return (0);
+	return (count * res);
 }

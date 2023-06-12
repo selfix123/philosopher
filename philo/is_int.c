@@ -6,13 +6,13 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 13:52:41 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/01 11:56:32 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:26:35 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	is_int(int ac, char **av)
+int	is_int(int ac, char **av)
 {
 	int	i;
 	int	len;
