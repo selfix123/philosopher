@@ -6,7 +6,7 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:44:23 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/12 13:34:25 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/13 14:14:28 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ int	mutex_init(t_data *data)
 	int	i;
 
 	i = 0;
-	data->fork = malloc(sizeof(t_fork));
+	data->fork = malloc(sizeof(t_fork) * data->nb_philo);
 	while (i < data->nb_philo)
 	{
 		if (pthread_mutex_init(&data->fork->mutex, NULL) != 0)
 			return (1);
+		data->fork[i].use = false;
 		i++;
 	}
 	pthread_mutex_init(&data->check_fork, NULL);

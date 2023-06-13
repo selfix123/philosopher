@@ -6,7 +6,7 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:34:54 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/12 13:24:14 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/13 17:00:41 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # define THINKING "is thinking"
 # define EATING "is eating"
 # define DIED "as died"
-# define SLEEP "is slepping"
-# define FORK "took a fork"
+# define SLEEP "is sleeping"
+# define FORK "has taken a fork"
 
 typedef long long	t_time;
 
@@ -63,20 +63,20 @@ typedef struct s_philo
 	t_data			*data;
 }	t_philo;
 
-long	ft_liatoi(const char *str);
-int		is_int(int ac, char **av);
-int		ft_strlen(char *str);
-void	ft_bzero(void *str, size_t n);
-int		args_checker(int ac, char **av, t_data *data);
-int		check_forks(t_philo *philo);
-void	*life(void *ptr);
-int		get_time(void);
-int		ft_atoi(const char *str);
-int		mutex_init(t_data *data);
-void	init_data(char **av, t_data *data);
-int		destroy_mutex(t_data *data);
-int		init_philo(t_data *data);
-int		create_philo(t_data *data);
-int		stop_philo(t_data *data);
+long		ft_liatoi(const char *str);
+int			is_int(int ac, char **av);
+int			ft_strlen(char *str);
+void		ft_bzero(void *str, size_t n);
+int			args_checker(int ac, char **av, t_data *data);
+int			check_forks(t_philo *philo);
+void		*life(void *ptr);
+t_time		get_time(void);
+int			ft_atoi(const char *str);
+int			mutex_init(t_data *data);
+void		init_data(char **av, t_data *data);
+int			destroy_mutex(t_data *data);
+int			init_philo(t_data *data);
+int			create_philo(t_data *data);
+int			stop_philo(t_data *data);
 
 #endif

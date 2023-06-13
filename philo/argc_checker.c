@@ -6,7 +6,7 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 14:43:34 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/12 15:00:41 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/13 17:04:41 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	args_checker(int ac, char **av, t_data *data)
 	int	i;
 
 	i = 0;
-	if (ac != 5)
+	if (data->meal == true && ac < 5)
 		return (printf("Need at least 4 arguments\n"));
 	else if (data->meal == true && ac != 6)
 		return (printf("need 5 arguments\n"));

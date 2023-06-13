@@ -6,7 +6,7 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 10:23:45 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/12 13:45:34 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/13 16:56:39 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,19 @@ int	init_philo(t_data *data)
 	int	i;
 
 	i = 0;
-	ft_bzero(data->philo, sizeof(t_philo));
-	data->philo = malloc(sizeof(t_philo));
+	data->philo = malloc(sizeof(t_philo) * data->nb_philo);
 	while (i < data->nb_philo)
 	{
-		data->philo[i].nb = data->nb_philo;
+		data->philo[i].data = data;
+		data->philo[i].nb = i + 1;
 		data->philo[i].tt_die = data->time_die;
 		data->philo[i].nb_meal = data->nb_meal;
 		data->philo[i].died = false;
+		if (i == 0)
+			data->philo[i].left_fork = &data->fork[data->nb_philo - 1];
+		else
+			data->philo[i].left_fork = &data->fork[i - 1];
+		data->philo[i].right_fork = &data->fork[i];
 		i++;
 	}
 	return (0);
@@ -51,7 +56,7 @@ int	create_philo(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i <= data->nb_philo)
+	while (i < data->nb_philo)
 	{
 		if (pthread_create(&data->philo[i].thread
 				, NULL, life, &data->philo[i]) != 0)
@@ -66,7 +71,7 @@ int	stop_philo(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i <= data->nb_philo)
+	while (i < data->nb_philo)
 	{
 		if (pthread_join(data->philo[i].thread, NULL) != 0)
 			return (1);

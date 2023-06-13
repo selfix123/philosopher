@@ -6,19 +6,20 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 12:37:57 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/06 12:38:21 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/13 14:31:00 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	get_time(void)
+t_time	get_time(void)
 {
-	static struct timeval	current_time = {-1, -1};
+	static struct timeval	start = {-1, -1};
 	struct timeval			real_time;
 
-	if (current_time.tv_sec == -1 && current_time.tv_usec == -1)
-		gettimeofday(&current_time, NULL);
-	return ((real_time.tv_sec - current_time.tv_sec * 1000)
-		+ real_time.tv_usec - current_time.tv_usec / 1000);
+	if (start.tv_sec == -1 && start.tv_usec == -1)
+		gettimeofday(&start, NULL);
+	gettimeofday(&real_time, NULL);
+	return ((real_time.tv_sec * 1000 - start.tv_sec * 1000)
+		+ real_time.tv_usec / 1000 - start.tv_usec / 1000);
 }
