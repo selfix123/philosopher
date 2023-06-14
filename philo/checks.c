@@ -6,7 +6,7 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 10:22:29 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/13 17:49:57 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:33:31 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,22 @@
 void	print_state(t_philo *philo, char *message)
 {
 	pthread_mutex_lock(&philo->data->print);
-	if (philo->died == false)
+	if (!philo->data->died || (philo->data->died && philo->died))
 		printf("%lld %d %s\n", get_time(), philo->nb, message);
 	pthread_mutex_unlock(&philo->data->print);
 }
 
-int	check_if_dead(t_data *data)
+void	check_if_dead(t_philo *philo)
 {
-	pthread_mutex_lock(&data->die);
-	if (data->time_die <= get_time())
+	pthread_mutex_lock(&philo->data->die);
+	if (philo->tt_die <= get_time() && !philo->data->died)
 	{
-		data->philo->died = true;
-		data->died = true;
-		print_state(data->philo, DIED);
+		philo->died = true;
+		philo->data->died = true;
+		philo->temp = 1;
+		print_state(philo, DIED);
 	}
-	pthread_mutex_unlock(&data->die);
-	return (0);
+	pthread_mutex_unlock(&philo->data->die);
 }
 
 int	check_forks(t_philo *philo)
@@ -55,12 +55,13 @@ int	check_forks(t_philo *philo)
 
 void	check_eat(t_philo *philo)
 {
-	while (!check_forks(philo) && check_if_dead(philo->data))
+	usleep(500);
+	while (!check_forks(philo) && philo->temp == 0)
 	{
 		usleep(100);
-		if (philo->died == true || check_if_dead(philo->data))
+		if (philo->died == true || philo->temp == 0)
 		{
-			check_if_dead(philo->data);
+			check_if_dead(philo);
 			return ;
 		}
 	}
@@ -69,9 +70,10 @@ void	check_eat(t_philo *philo)
 	pthread_mutex_lock(&philo->right_fork->mutex);
 	print_state(philo, FORK);
 	print_state(philo, EATING);
-	usleep(philo->data->time_eat * 1000);
-	philo->tt_die = get_time() + philo->data->time_die;
+	smart_usleep(philo->data->time_eat, philo);
+	philo->tt_die = philo->data->time_die + get_time();
 	pthread_mutex_unlock(&philo->left_fork->mutex);
+	printf("%p\n", &philo->right_fork->mutex);
 	philo->left_fork->use = false;
 	pthread_mutex_unlock(&philo->right_fork->mutex);
 	philo->right_fork->use = false;
@@ -83,7 +85,7 @@ void	*life(void *ptr)
 
 	philo = (t_philo *)ptr;
 	if (philo->nb & 1)
-		usleep(100);
+		smart_usleep(philo->data->time_eat, philo);
 	while (philo->data->died == false)
 	{
 		print_state(philo, THINKING);
@@ -95,7 +97,7 @@ void	*life(void *ptr)
 			return (NULL);
 		if (!philo->died)
 			print_state(philo, SLEEP);
-		usleep(philo->data->time_sleep * 1000);
+		smart_usleep(philo->data->time_sleep, philo);
 	}
 	return (NULL);
 }

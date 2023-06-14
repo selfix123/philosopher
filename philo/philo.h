@@ -6,7 +6,7 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:34:54 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/13 17:00:41 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:28:45 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_philo
 	bool			died;
 	int				nb_meal;
 	t_data			*data;
+	int				temp;
 }	t_philo;
 
 long		ft_liatoi(const char *str);
@@ -78,5 +79,7 @@ int			destroy_mutex(t_data *data);
 int			init_philo(t_data *data);
 int			create_philo(t_data *data);
 int			stop_philo(t_data *data);
+void		smart_usleep(t_time time, t_philo *philo);
+void		check_if_dead(t_philo *philo);
 
 #endif

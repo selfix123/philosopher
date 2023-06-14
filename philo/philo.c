@@ -6,7 +6,7 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:34:28 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/13 13:55:49 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:41:46 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ int	main(int ac, char **av)
 		return (1);
 	if (destroy_mutex(data))
 		return (1);
+	free (data);
 	return (0);
 }
