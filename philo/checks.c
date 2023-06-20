@@ -6,7 +6,7 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 10:22:29 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/14 18:33:31 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/19 21:32:03 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ int	check_forks(t_philo *philo)
 void	check_eat(t_philo *philo)
 {
 	usleep(500);
-	while (!check_forks(philo) && philo->temp == 0)
+	while (!check_forks(philo) || philo->tt_die <= get_time())
 	{
 		usleep(100);
-		if (philo->died == true || philo->temp == 0)
+		if (philo->died == true || philo->tt_die <= get_time())
 		{
 			check_if_dead(philo);
 			return ;
@@ -70,10 +70,9 @@ void	check_eat(t_philo *philo)
 	pthread_mutex_lock(&philo->right_fork->mutex);
 	print_state(philo, FORK);
 	print_state(philo, EATING);
-	smart_usleep(philo->data->time_eat, philo);
 	philo->tt_die = philo->data->time_die + get_time();
+	smart_usleep(philo->data->time_eat, philo);
 	pthread_mutex_unlock(&philo->left_fork->mutex);
-	printf("%p\n", &philo->right_fork->mutex);
 	philo->left_fork->use = false;
 	pthread_mutex_unlock(&philo->right_fork->mutex);
 	philo->right_fork->use = false;
@@ -91,9 +90,9 @@ void	*life(void *ptr)
 		print_state(philo, THINKING);
 		if (!philo->died)
 			check_eat(philo);
-		if (philo->data->meal == true)
-			philo->data->nb_meal--;
-		if (philo->data->meal == true && philo->data->nb_meal == 0)
+		if (philo->data->meal == true && philo->data->nb_meal > 1)
+			philo->nb_meal--;
+		if (philo->data->meal == true && philo->nb_meal == 0)
 			return (NULL);
 		if (!philo->died)
 			print_state(philo, SLEEP);

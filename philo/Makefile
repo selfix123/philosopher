@@ -1,4 +1,4 @@
-NAME	=	philosopher
+NAME	=	philo
 
 GREEN	=	\033[0;32m
 RED		=	\033[0;31m
@@ -6,9 +6,9 @@ BLUE	=	\033[0;34m
 WHITE	=	\033[0m
 
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra
+CFLAGS	=	-Wall -Werror -Wextra 
 RM		=	rm -f
-
+#-fsanitize=thread
 SRCS	=	philo.c\
 			argc_checker.c\
 			init_all.c\

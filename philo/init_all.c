@@ -6,7 +6,7 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 10:23:45 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/14 18:05:53 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/19 14:07:22 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	init_data(char **av, t_data *data)
 	data->time_die = ft_atoi(av[2]);
 	data->time_eat = ft_atoi(av[3]);
 	data->time_sleep = ft_atoi(av[4]);
+	data->died = false;
 	if (av[5])
 	{
 		data->nb_meal = ft_atoi(av[5]);
@@ -46,7 +47,6 @@ int	init_philo(t_data *data)
 		else
 			data->philo[i].left_fork = &data->fork[i - 1];
 		data->philo[i].right_fork = &data->fork[i];
-		printf("%p\n", &data->philo[i].right_fork);
 		i++;
 	}
 	return (0);
@@ -59,7 +59,6 @@ int	create_philo(t_data *data)
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		printf("%d %p\n", data->philo->nb, data->philo->right_fork);
 		if (pthread_create(&data->philo[i].thread
 				, NULL, life, &data->philo[i]) != 0)
 			return (1);
