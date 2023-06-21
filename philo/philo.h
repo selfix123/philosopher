@@ -6,7 +6,7 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:34:54 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/19 13:54:50 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:02:16 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ int			create_philo(t_data *data);
 int			stop_philo(t_data *data);
 void		smart_usleep(t_time time, t_philo *philo);
 void		check_if_dead(t_philo *philo);
+int			ft_isdigit(int c);
 
 #endif

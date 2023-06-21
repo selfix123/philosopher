@@ -6,9 +6,8 @@ BLUE	=	\033[0;34m
 WHITE	=	\033[0m
 
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra 
+CFLAGS	=	-Wall -Werror -Wextra -fsanitize=thread
 RM		=	rm -f
-#-fsanitize=thread
 SRCS	=	philo.c\
 			argc_checker.c\
 			init_all.c\
@@ -20,6 +19,7 @@ SRCS	=	philo.c\
 			atoi.c\
 			get_time.c\
 			mutex.c\
+			ft_isdigit.c\
 
 OBJS	=	$(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 13:44:23 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/19 13:50:55 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/21 14:07:16 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ int	destroy_mutex(t_data *data)
 	pthread_mutex_destroy(&data->check_fork);
 	pthread_mutex_destroy(&data->print);
 	pthread_mutex_destroy(&data->die);
+	free(fork);
 	return (0);
 }

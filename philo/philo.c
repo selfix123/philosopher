@@ -6,7 +6,7 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:34:28 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/14 17:41:46 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/21 14:15:41 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,21 @@
 
 int	main(int ac, char **av)
 {
-	t_data	*data;
+	t_data	data;
 
-	data = malloc(sizeof(t_data));
-	if (!data)
+	init_data(av, &data);
+	if (args_checker(ac, av, &data))
 		return (1);
-	init_data(av, data);
-	if (args_checker(ac, av, data))
+	if (mutex_init(&data))
+		return (free(&data), 1);
+	if (init_philo(&data))
+		return (free(&data), 1);
+	if (create_philo(&data))
+		return (free(&data), 1);
+	if (stop_philo(&data))
 		return (1);
-	if (mutex_init(data))
-		return (free(data), 1);
-	if (init_philo(data))
-		return (free(data), 1);
-	if (create_philo(data))
-		return (free(data), 1);
-	if (stop_philo(data))
+	if (destroy_mutex(&data))
 		return (1);
-	if (destroy_mutex(data))
-		return (1);
-	free (data);
+	free (&data);
 	return (0);
 }
