@@ -6,16 +6,28 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 10:22:29 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/19 21:32:03 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:33:39 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+int	check_dead(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->die);
+	if (philo->data->died)
+	{
+		pthread_mutex_unlock(&philo->data->die);
+		return (1);
+	}
+	pthread_mutex_unlock(&philo->data->die);
+	return (0);
+}
+
 void	print_state(t_philo *philo, char *message)
 {
 	pthread_mutex_lock(&philo->data->print);
-	if (!philo->data->died || (philo->data->died && philo->died))
+	if (!check_dead(philo) || (check_dead(philo) && philo->died))
 		printf("%lld %d %s\n", get_time(), philo->nb, message);
 	pthread_mutex_unlock(&philo->data->print);
 }
@@ -23,12 +35,13 @@ void	print_state(t_philo *philo, char *message)
 void	check_if_dead(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->die);
-	if (philo->tt_die <= get_time() && !philo->data->died)
+	if (!philo->data->died)
 	{
 		philo->died = true;
 		philo->data->died = true;
-		philo->temp = 1;
+		pthread_mutex_unlock(&philo->data->die);
 		print_state(philo, DIED);
+		return ;
 	}
 	pthread_mutex_unlock(&philo->data->die);
 }
@@ -37,7 +50,6 @@ int	check_forks(t_philo *philo)
 {
 	int	use;
 
-	use = 0;
 	pthread_mutex_lock(&philo->data->check_fork);
 	if (philo->left_fork == philo->right_fork)
 		use = 0;
@@ -58,12 +70,14 @@ void	check_eat(t_philo *philo)
 	usleep(500);
 	while (!check_forks(philo) || philo->tt_die <= get_time())
 	{
-		usleep(100);
-		if (philo->died == true || philo->tt_die <= get_time())
+		if (philo->tt_die <= get_time())
 		{
 			check_if_dead(philo);
 			return ;
 		}
+		if (check_dead(philo))
+			break ;
+		usleep(100);
 	}
 	pthread_mutex_lock(&philo->left_fork->mutex);
 	print_state(philo, FORK);
@@ -73,9 +87,11 @@ void	check_eat(t_philo *philo)
 	philo->tt_die = philo->data->time_die + get_time();
 	smart_usleep(philo->data->time_eat, philo);
 	pthread_mutex_unlock(&philo->left_fork->mutex);
-	philo->left_fork->use = false;
 	pthread_mutex_unlock(&philo->right_fork->mutex);
+	pthread_mutex_lock(&philo->data->check_fork);
+	philo->left_fork->use = false;
 	philo->right_fork->use = false;
+	pthread_mutex_unlock(&philo->data->check_fork);
 }
 
 void	*life(void *ptr)
@@ -85,16 +101,16 @@ void	*life(void *ptr)
 	philo = (t_philo *)ptr;
 	if (philo->nb & 1)
 		smart_usleep(philo->data->time_eat, philo);
-	while (philo->data->died == false)
+	while (!check_dead(philo))
 	{
 		print_state(philo, THINKING);
-		if (!philo->died)
+		if (!check_dead(philo))
 			check_eat(philo);
-		if (philo->data->meal == true && philo->data->nb_meal > 1)
+		if (philo->data->meal == true && philo->nb_meal > 1)
 			philo->nb_meal--;
 		if (philo->data->meal == true && philo->nb_meal == 0)
 			return (NULL);
-		if (!philo->died)
+		if (!check_dead(philo))
 			print_state(philo, SLEEP);
 		smart_usleep(philo->data->time_sleep, philo);
 	}

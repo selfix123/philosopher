@@ -6,20 +6,16 @@ BLUE	=	\033[0;34m
 WHITE	=	\033[0m
 
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra -fsanitize=thread
+CFLAGS	=	-Wall -Werror -Wextra -fsanitize=thread -g
 RM		=	rm -f
 SRCS	=	philo.c\
 			argc_checker.c\
 			init_all.c\
-			is_int.c\
 			ft_liatoi.c\
-			ft_strlen.c\
-			ft_bzero.c\
 			checks.c\
-			atoi.c\
 			get_time.c\
 			mutex.c\
-			ft_isdigit.c\
+			utils.c\
 
 OBJS	=	$(SRCS:.c=.o)
 
