@@ -6,7 +6,7 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:34:54 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/21 11:02:16 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/25 13:18:40 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_philo
 }	t_philo;
 
 long		ft_liatoi(const char *str);
-int			is_int(int ac, char **av);
+int			is_int(char *av);
 int			ft_strlen(char *str);
 void		ft_bzero(void *str, size_t n);
 int			args_checker(int ac, char **av, t_data *data);

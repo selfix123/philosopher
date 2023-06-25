@@ -6,7 +6,7 @@ BLUE	=	\033[0;34m
 WHITE	=	\033[0m
 
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra -fsanitize=thread -g
+CFLAGS	=	-Wall -Werror -Wextra
 RM		=	rm -f
 SRCS	=	philo.c\
 			argc_checker.c\

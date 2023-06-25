@@ -6,7 +6,7 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 14:17:01 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/21 14:18:55 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/06/25 13:30:27 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,19 @@ void	ft_bzero(void *str, size_t n)
 	memset(str, 0, n);
 }
 
-int	is_int(int ac, char **av)
+int	is_int(char *av)
 {
 	int	i;
-	int	j;
 	int	len;
 
-	i = 0;
-	j = 0;
-	len = ft_strlen(av[i]);
-	while (len < ac)
-		if (ft_isdigit(av[i++][j++]))
+	i = -1;
+	len = ft_strlen(av);
+	while (++i < len)
+		if (!ft_isdigit(av[i]))
 			return (0);
-	if (len > 11)
+	if (len > 10)
 		return (0);
-	else if (len == 11 && ft_liatoi(av[i]) < INT_MIN)
-		return (0);
-	else if (len == 10 && ft_liatoi(av[i]) > INT_MAX)
+	else if (len == 10 && ft_liatoi(av) > INT_MAX)
 		return (0);
 	return (1);
 }
