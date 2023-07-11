@@ -6,23 +6,11 @@
 /*   By: zbeaumon <zbeaumon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 10:22:29 by zbeaumon          #+#    #+#             */
-/*   Updated: 2023/06/22 17:33:39 by zbeaumon         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:30:48 by zbeaumon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int	check_dead(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->data->die);
-	if (philo->data->died)
-	{
-		pthread_mutex_unlock(&philo->data->die);
-		return (1);
-	}
-	pthread_mutex_unlock(&philo->data->die);
-	return (0);
-}
 
 void	print_state(t_philo *philo, char *message)
 {
